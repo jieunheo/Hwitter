@@ -6,15 +6,16 @@ import AppRouter from './Router';
 function App() {
   const [init, setInit] = useState(false); // 초기화 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        // User is signed in.
-        console.log(user);
         setIsLoggedIn(true);
+        setUser(user);
       } else {
         setIsLoggedIn(false);
+        setUser(null);
       }
       setInit(true);
     });
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <div>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} /> : 'Initializing...'}
+      {init ? <AppRouter isLoggedIn={isLoggedIn} user={user} /> : 'Initializing...'}
       <footer>&copy; {new Date().getFullYear()}</footer>
     </div>
   );
