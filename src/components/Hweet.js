@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 
 const Hweet = ({ item, isAuthor }) => {
   const [isEditing, setisEditing] = useState(false);
@@ -25,8 +25,10 @@ const Hweet = ({ item, isAuthor }) => {
   const onDeleteHandler = async () => {
     const ok = window.confirm('Realy???');
 
+    
     if(ok) {
       await dbService.doc(`hweets/${item.id}`).delete();
+      await storageService.refFromURL(item.url).delete();
     }
   };
 
@@ -41,6 +43,7 @@ const Hweet = ({ item, isAuthor }) => {
       ) : (
         <Fragment>
           <p>{item.text}</p>
+          {item.url && <img src={item.url} alt='hweet img' />}
           {isAuthor && (
             <Fragment>
               <button onClick={onToggleEditHandler}>Edit</button>
