@@ -5,7 +5,7 @@ import { authService, dbService } from "fbase";
 import Hweet from "components/Hweet";
 
 const Profile = ({ user, editUserHandler }) => {
-  const [enteredName, setEnteredName] = useState(user.displayName);
+  const [enteredName, setEnteredName] = useState(user.displayName ? user.displayName : '');
   const [loadedHweets, setLoadedHweets] = useState([]);
   const history = useHistory();
 

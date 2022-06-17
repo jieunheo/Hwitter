@@ -10,9 +10,11 @@ function App() {
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
         setIsLoggedIn(true);
         setUser({
+          uid: user.uid,
           displayName: user.displayName,
           email: user.email,
           updateProfile: (args) => user.updateProfile(args)
@@ -28,6 +30,7 @@ function App() {
   const editUserHandler = () => {
     const user = authService.currentUser;
     setUser({
+      uid: user.uid,
       displayName: user.displayName,
       email: user.email,
       updateProfile: (args) => user.updateProfile(args)
