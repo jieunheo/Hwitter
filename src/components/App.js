@@ -12,7 +12,11 @@ function App() {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
-        setUser(user);
+        setUser({
+          displayName: user.displayName,
+          email: user.email,
+          updateProfile: (args) => user.updateProfile(args)
+        });
       } else {
         setIsLoggedIn(false);
         setUser(null);
@@ -21,6 +25,15 @@ function App() {
     });
   }, []);
 
+  const editUserHandler = () => {
+    const user = authService.currentUser;
+    setUser({
+      displayName: user.displayName,
+      email: user.email,
+      updateProfile: (args) => user.updateProfile(args)
+    });
+  };
+
   // console.log(authService.currentUser);
   // setInterval(() => {
   //   console.log(authService.currentUser);
@@ -28,7 +41,7 @@ function App() {
 
   return (
     <div>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} user={user} /> : 'Initializing...'}
+      {init ? <AppRouter editUserHandler={editUserHandler} isLoggedIn={isLoggedIn} user={user} /> : 'Initializing...'}
       <footer>&copy; {new Date().getFullYear()}</footer>
     </div>
   );

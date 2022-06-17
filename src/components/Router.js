@@ -6,16 +6,16 @@ import Auth from 'routes/Auth';
 import Profile from 'routes/Profile';
 import Navigation from "components/Navigation";
 
-const AppRouter =  ({ isLoggedIn, user }) => {
+const AppRouter =  ({ isLoggedIn, user, editUserHandler }) => {
   return (
     <HashRouter>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation user={user} />}
       <Switch>
         {isLoggedIn
         ? (
           <Fragment>
             <Route path='/' exact><Home user={user} /></Route>
-            <Route path='/profile' exact><Profile user={user} /></Route>
+            <Route path='/profile' exact><Profile user={user} editUserHandler={editUserHandler} /></Route>
             {/* <Redirect from='*' to='/'/> */}
           </Fragment>
         ) : (
