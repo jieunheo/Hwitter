@@ -2,13 +2,16 @@ import React, { Fragment, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { dbService, storageService } from "fbase";
 
-const Hweet = ({ item, isAuthor }) => {
+import classes from 'components/Hweet.module.css';
+
+const Hweet = ({ item, isAuthor, setEditing }) => {
   const [isEditing, setisEditing] = useState(false);
   const [enteredText, setEnteredText] = useState(item.text);
   const [imageUrl, setImageUrl] = useState('');
 
   const onToggleEditHandler = () => {
     setisEditing(prev => !prev);
+    setEditing(prev => !prev);
   };
 
   const onEditOkHandler = async (event) => {
@@ -23,6 +26,7 @@ const Hweet = ({ item, isAuthor }) => {
     }
 
     setisEditing(false);
+    setEditing(false);
   };
 
   const enteredTextHandler = (event) => {
@@ -57,34 +61,41 @@ const Hweet = ({ item, isAuthor }) => {
   };
 
   return (
-    <li key={item.id}>
+    <li key={item.id} className={classes.hweet}>
       {isEditing ? (
-        <form onSubmit={onEditOkHandler}>
+        <form className={classes.edit} onSubmit={onEditOkHandler}>
           <input type='text' value={enteredText} onChange={enteredTextHandler} required />
+          <label htmlFor='file'>Edit image</label>
           <input
             type='file'
+            id='file'
             accept='image/*'
             onChange={onFileChangeHandler}
           />
-          {item.url && !imageUrl && <img alt='loaded img' src={item.url} />}
-          {imageUrl && (
-            <div>
-              <img alt='loaded img' src={imageUrl} />
-              <button onClick={onClearImageHandler}>Clear</button>
-            </div>
-          )}
-          <button onClick={onToggleEditHandler}>Cancel</button>
-          <button onClick={onEditOkHandler}>Edit</button>
+          
+          <div>
+            {item.url && !imageUrl && <img alt='loaded img' src={item.url} />}
+            {imageUrl && (
+                <Fragment>
+                  <img alt='loaded img' src={imageUrl} />
+                  <button onClick={onClearImageHandler} className={classes.btn}>Clear</button>
+                </Fragment>
+            )}
+          </div>
+          <div className={classes.actions}>
+            <button onClick={onToggleEditHandler}>Cancel</button>
+            <button onClick={onEditOkHandler}>Edit</button>
+          </div>
         </form>
       ) : (
         <Fragment>
-          <p>{item.text}</p>
+          <p>{enteredText}</p>
           {item.url && <img src={item.url} alt='hweet img' />}
           {isAuthor && (
-            <Fragment>
+            <div className={classes.actions}>
               <button onClick={onToggleEditHandler}>Edit</button>
               <button onClick={onDeleteHandler}>Delete</button>
-            </Fragment>
+            </div>
           )}
         </Fragment>
       )}

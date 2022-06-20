@@ -1,0 +1,20 @@
+.actions {
+  text-align: center;
+}
+
+.actions button {
+  width: 45%;
+  padding: 10px 15px;
+  margin-right: 20px;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.actions button:last-child {
+  margin-right: 0;
+}
+
+.actions button:hover {
+  background-color: rgb(193, 193, 193);
+}

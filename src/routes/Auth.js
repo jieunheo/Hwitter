@@ -2,6 +2,7 @@ import React from "react";
 
 import { authService, firebaseInstance } from "fbase";
 import AuthForm from "components/AuthForm";
+import classes from "routes/Auth.module.css";
 
 const Auth = () => {
 
@@ -21,7 +22,7 @@ const Auth = () => {
   return (
     <div>
       <AuthForm />
-      <div>
+      <div className={classes.actions}>
         <button name='google' onClick={onSocialClick}>Continue with Google</button>
         <button name='github' onClick={onSocialClick}>Continue with Github</button>
       </div>

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { authService, dbService } from "fbase";
 import Hweet from "components/Hweet";
+import classes from 'routes/Profile.module.css';
 
 const Profile = ({ user, editUserHandler }) => {
   const [enteredName, setEnteredName] = useState(user.displayName ? user.displayName : '');
@@ -49,8 +50,8 @@ const Profile = ({ user, editUserHandler }) => {
   };
 
   return (
-    <Fragment>
-      <form onSubmit={updateProfileHandler}>
+    <div>
+      <form onSubmit={updateProfileHandler} className={classes.form}>
         <input type='text' placeholder='display name' value={enteredName} onChange={onInputChangeHandler} />
         <input type='email' placeholder={user.email} readOnly />
         <button>Update Profile</button>
@@ -60,8 +61,10 @@ const Profile = ({ user, editUserHandler }) => {
           <Hweet key={item.id} item={item} isAuthor={true} />
         ))}
       </ul>
-      <button onClick={logoutHandler}>Log Out</button>
-    </Fragment>
+      <div className={classes.actions}>
+        <button onClick={logoutHandler}>Log Out</button>
+      </div>
+    </div>
   );
 };
 

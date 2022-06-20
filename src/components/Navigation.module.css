@@ -1,0 +1,18 @@
+.nav {
+  display: block;
+  width: 100%;
+
+  margin: 30px;
+}
+
+.nav ul {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.nav li {
+  display: block;
+  flex-grow: 1;
+  text-align: center;
+}

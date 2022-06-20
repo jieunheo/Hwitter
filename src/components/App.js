@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { authService } from 'fbase';
 
+import classes from 'components/App.module.css';
 import AppRouter from './Router';
 
 function App() {
@@ -43,9 +44,9 @@ function App() {
   // }, 2000);
 
   return (
-    <div>
+    <div className={classes.wrap}>
       {init ? <AppRouter editUserHandler={editUserHandler} isLoggedIn={isLoggedIn} user={user} /> : 'Initializing...'}
-      <footer>&copy; {new Date().getFullYear()}</footer>
+      <footer className={classes.footer}>&copy; {new Date().getFullYear()}</footer>
     </div>
   );
 }

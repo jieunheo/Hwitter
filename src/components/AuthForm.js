@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { authService } from "fbase";
 
+import classes from 'components/AuthForm.module.css';
+
 const AuthForm = () => {
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
@@ -39,7 +41,7 @@ const AuthForm = () => {
 
   return (
     <Fragment>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={onSubmitHandler} className={classes.form}>
         <input
           name='email'
           type='email'
@@ -54,10 +56,12 @@ const AuthForm = () => {
           required value={enteredPassword}
           onChange={onEnteredHandler}
         />
-        {error}
+        {<p className={classes.error}>{error}</p>}
         <button>{newAccount ? 'Create Account' : 'Log In'}</button>
       </form>
-      <span onClick={toggleAcountHnadler}>{!newAccount ? 'To Create Account' : 'To Log In'}</span>
+      <div className={classes.btn}>
+        <span onClick={toggleAcountHnadler}>{!newAccount ? 'To Create Account' : 'To Log In'}</span>
+      </div>
     </Fragment>
   );
 };

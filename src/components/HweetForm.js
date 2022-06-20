@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { dbService, storageService } from "fbase";
 
+import classes from 'components/HweetForm.module.css';
+
 const HweetForm = ({ user }) => {
   const [enteredText, setEnteredText] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -50,7 +52,7 @@ const HweetForm = ({ user }) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={classes.form}>
       <input
         type='text'
         placeholder='What is tour mind?'
@@ -58,14 +60,16 @@ const HweetForm = ({ user }) => {
         onChange={enteredTextHandler}
         value={enteredText}
       />
+      <label htmlFor='file'>add file</label>
       <input
         type='file'
+        id='file'
         accept='image/*'
         onChange={onFileChangeHandler}
       />
       <button>Twieet</button>
       {imageUrl && (
-        <div>
+        <div className={classes['image-wrap']}>
           <img alt='loaded img' src={imageUrl} />
           <button onClick={onClearImageHandler}>Clear</button>
         </div>
