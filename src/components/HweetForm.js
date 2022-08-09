@@ -55,7 +55,7 @@ const HweetForm = ({ user }) => {
     <form onSubmit={submitHandler} className={classes.form}>
       <input
         type='text'
-        placeholder='What is tour mind?'
+        placeholder='What is your mind?'
         maxLength={120}
         onChange={enteredTextHandler}
         value={enteredText}
